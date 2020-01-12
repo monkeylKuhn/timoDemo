@@ -47,6 +47,8 @@ import com.linln.admin.buss.task.TestStockTask;
 import com.linln.admin.buss.task.TestTask;
 import com.linln.admin.buss.util.EasyPoiUtils;
 import com.linln.admin.buss.util.PageInfo;
+import com.linln.admin.buss.util.UserUtil;
+import com.linln.modules.system.domain.User;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -76,7 +78,8 @@ public class ProductController {
 
     @GetMapping("/sku")
     public Object fetchSku() {
-        testStockTask.fetchStock();
+    	User userInfo = UserUtil.getUserInfo();
+//        testStockTask.fetchStock();
         return true;
     }
 
