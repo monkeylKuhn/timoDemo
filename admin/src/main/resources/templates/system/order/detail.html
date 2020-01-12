@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+<body>
+    <div class="timo-detail-page">
+        <div class="timo-detail-title">基本信息</div>
+        <table class="layui-table timo-detail-table">
+            <colgroup>
+                <col width="100px"><col>
+                <col width="100px"><col>
+            </colgroup>
+            <tbody>
+                <tr>
+                    <th>主键ID</th>
+                    <td th:text="${order.id}"></td>
+                    <th>订单号</th>
+                    <td th:text="${order.orderNo}"></td>
+                </tr>
+                <tr>
+                    <th>下单时间</th>
+                    <td th:text="${order.submitTime}"></td>
+                    <th>供应商名称</th>
+                    <td th:text="${order.supplierName}"></td>
+                </tr>
+                <tr>
+                    <th>商品sku</th>
+                    <td th:text="${order.sku}"></td>
+                    <th>货号</th>
+                    <td th:text="${order.artNo}"></td>
+                </tr>
+                <tr>
+                    <th>品牌</th>
+                    <td th:text="${order.brand}"></td>
+                    <th>尺码</th>
+                    <td th:text="${order.size}"></td>
+                </tr>
+                <tr>
+                    <th>颜色</th>
+                    <td th:text="${order.color}"></td>
+                    <th>季节</th>
+                    <td th:text="${order.season}"></td>
+                </tr>
+                <tr>
+                    <th>价格</th>
+                    <td th:text="${order.price}"></td>
+                    <th>市场价</th>
+                    <td th:text="${order.retailPrice}"></td>
+                </tr>
+                <tr>
+                    <th>订单状态</th>
+                    <td th:text="${order.orderStatus}"></td>
+                    <th>供应商发货状态</th>
+                    <td th:text="${order.supplierDeliveryStatus}"></td>
+                </tr>
+                <tr>
+                    <th>供应商物流号</th>
+                    <td th:text="${order.supplierDeliveryNo}"></td>
+                    <th>供应商barcode</th>
+                    <td th:text="${order.supplierBarCode}"></td>
+                </tr>
+                <tr>
+                    <th>供应商发货时间</th>
+                    <td th:text="${order.supplierTime}"></td>
+                    <th>仓库barcode</th>
+                    <td th:text="${order.warehouseBarCode}"></td>
+                </tr>
+                <tr>
+                    <th>质检</th>
+                    <td th:text="${order.quality}"></td>
+                    <th>仓库发货状态</th>
+                    <td th:text="${order.warehouseStatus}"></td>
+                </tr>
+                <tr>
+                    <th>仓库物流号</th>
+                    <td th:text="${order.warehouseDeliveryNo}"></td>
+                    <th>仓库发货时间</th>
+                    <td th:text="${order.warehouseTime}"></td>
+                </tr>
+                <tr>
+                    <th>更新者</th>
+                    <td th:text="${order.updateBy?.nickname}"></td>
+                    <th>创建者</th>
+                    <td th:text="${order.createBy?.nickname}"></td>
+                </tr>
+                <tr>
+                    <th>更新时间</th>
+                    <td th:text="${#dates.format(order.updateDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                    <th>创建时间</th>
+                    <td th:text="${#dates.format(order.createDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+<script th:replace="/common/template :: script"></script>
+</body>
+</html>
