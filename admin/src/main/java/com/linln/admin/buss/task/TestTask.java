@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -15,6 +14,8 @@ import com.linln.admin.buss.mapper.DressSkuMapper;
 import com.linln.admin.buss.model.DressProduct;
 import com.linln.admin.buss.model.DressResult;
 import com.linln.admin.buss.model.DressSkuSize;
+import com.linln.modules.system.repository.DressSpuRepository;
+import com.linln.modules.system.service.DressSpuService;
 
 @Component
 public class TestTask {
@@ -24,13 +25,13 @@ public class TestTask {
 	
 	@Autowired
 	DressSkuMapper dressSkuMapper;
-
+	
 //	@Scheduled(cron = "0 0/2 * * * ?")
 //	@Scheduled(fixedDelay=1000*60*10)
 	public void fetchProduct() {
-        System.err.println(new Date().toLocaleString()+"商品更新开始"+System.currentTimeMillis());
+		
+		System.err.println(new Date().toLocaleString()+"商品更新开始"+System.currentTimeMillis());
 
-	    
 		String url = "https://api.dresscode.cloud/channels/v2/api/feeds/en/clients/llf/products?channelKey=0198873e-1fde-4783-8719-4f1d0790eb6e";
 		HashMap<String, String> head = new HashMap<String,String>();
 		head.put("Ocp-Apim-Subscription-Key", "107b04efec074c6f8f8abed90d224802");
