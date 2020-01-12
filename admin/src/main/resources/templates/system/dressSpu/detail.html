@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+<body>
+    <div class="timo-detail-page">
+        <div class="timo-detail-title">基本信息</div>
+        <table class="layui-table timo-detail-table">
+            <colgroup>
+                <col width="100px"><col>
+                <col width="100px"><col>
+            </colgroup>
+            <tbody>
+                <tr>
+                    <th>主键ID</th>
+                    <td th:text="${dressSpu.id}"></td>
+                    <th>spuid</th>
+                    <td th:text="${dressSpu.productID}"></td>
+                </tr>
+                <tr>
+                    <th>cid</th>
+                    <td th:text="${dressSpu.clientProductID}"></td>
+                    <th>spu</th>
+                    <td th:text="${dressSpu.spu}"></td>
+                </tr>
+                <tr>
+                    <th>货号</th>
+                    <td th:text="${dressSpu.sku}"></td>
+                    <th>品牌</th>
+                    <td th:text="${dressSpu.brand}"></td>
+                </tr>
+                <tr>
+                    <th>name</th>
+                    <td th:text="${dressSpu.name}"></td>
+                    <th>描述</th>
+                    <td th:text="${dressSpu.description}"></td>
+                </tr>
+                <tr>
+                    <th>性别</th>
+                    <td th:text="${dressSpu.genre}"></td>
+                    <th>类型</th>
+                    <td th:text="${dressSpu.type}"></td>
+                </tr>
+                <tr>
+                    <th>类目</th>
+                    <td th:text="${dressSpu.category}"></td>
+                    <th>季节</th>
+                    <td th:text="${dressSpu.season}"></td>
+                </tr>
+                <tr>
+                    <th>经典</th>
+                    <td th:text="${dressSpu.isCarryOver}"></td>
+                    <th>颜色</th>
+                    <td th:text="${dressSpu.color}"></td>
+                </tr>
+                <tr>
+                    <th>市场价</th>
+                    <td th:text="${dressSpu.retailPrice}"></td>
+                    <th>产地</th>
+                    <td th:text="${dressSpu.madeIn}"></td>
+                </tr>
+                <tr>
+                    <th>材质</th>
+                    <td th:text="${dressSpu.composition}"></td>
+                    <th>价格</th>
+                    <td th:text="${dressSpu.price}"></td>
+                </tr>
+                <tr>
+                    <th>含税</th>
+                    <td th:text="${dressSpu.pricesIncludeVat}"></td>
+                    <th>时间</th>
+                    <td th:text="${dressSpu.productLastUpdated}"></td>
+                </tr>
+                <tr>
+                    <th>图片</th>
+                    <td th:text="${dressSpu.photos}" colspan="3"></td>
+                </tr>
+                <tr>
+                    <th>创建者</th>
+                    <td th:text="${dressSpu.createBy?.nickname}"></td>
+                    <th>更新者</th>
+                    <td th:text="${dressSpu.updateBy?.nickname}"></td>
+                </tr>
+                <tr>
+                    <th>创建时间</th>
+                    <td th:text="${#dates.format(dressSpu.createDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                    <th>更新时间</th>
+                    <td th:text="${#dates.format(dressSpu.updateDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+<script th:replace="/common/template :: script"></script>
+</body>
+</html>

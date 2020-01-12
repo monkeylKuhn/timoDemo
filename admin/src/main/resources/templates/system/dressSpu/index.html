@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:mo="https://gitee.com/aun/Timo">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+
+<body class="timo-layout-page">
+    <div class="layui-card">
+        <div class="layui-card-header timo-card-header">
+            <span><i class="fa fa-bars"></i> A商家管理</span>
+            <i class="layui-icon layui-icon-refresh refresh-btn"></i>
+        </div>
+        <div class="layui-card-body">
+            <div class="layui-row timo-card-screen">
+                <div class="pull-left layui-form-pane timo-search-box">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">状态</label>
+                        <div class="layui-input-block timo-search-status">
+                            <select class="timo-search-select" name="status" mo:dict="SEARCH_STATUS" mo-selected="${param.status}"></select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">spuid</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="productID" th:value="${param.productID}" placeholder="请输入spuid" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <button class="layui-btn timo-search-btn">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="pull-right screen-btn-group">
+                    <button class="layui-btn open-popup" data-title="添加A商家" th:attr="data-url=@{/system/dressSpu/add}" data-size="auto">
+                        <i class="fa fa-plus"></i> 添加</button>
+                    <div class="btn-group">
+                        <button class="layui-btn">操作<span class="caret"></span></button>
+                        <dl class="layui-nav-child layui-anim layui-anim-upbit">
+                            <dd><a class="ajax-status" th:href="@{/system/dressSpu/status/ok}">启用</a></dd>
+                            <dd><a class="ajax-status" th:href="@{/system/dressSpu/status/freezed}">冻结</a></dd>
+                            <dd><a class="ajax-status" th:href="@{/system/dressSpu/status/delete}">删除</a></dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="timo-table-wrap">
+                <table class="layui-table timo-table">
+                    <thead>
+                    <tr>
+                        <th class="timo-table-checkbox">
+                            <label class="timo-checkbox"><input type="checkbox">
+                                <i class="layui-icon layui-icon-ok"></i></label>
+                        </th>
+                        <th>主键ID</th>
+                        <th>spuid</th>
+                        <th>cid</th>
+                        <th>spu</th>
+                        <th>货号</th>
+                        <th>品牌</th>
+                        <th>name</th>
+                        <th>描述</th>
+                        <th>性别</th>
+                        <th>类型</th>
+                        <th>类目</th>
+                        <th>季节</th>
+                        <th>经典</th>
+                        <th>颜色</th>
+                        <th>市场价</th>
+                        <th>产地</th>
+                        <th>材质</th>
+                        <th>价格</th>
+                        <th>含税</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="item:${list}">
+                        <td><label class="timo-checkbox"><input type="checkbox" th:value="${item.id}">
+                            <i class="layui-icon layui-icon-ok"></i></label></td>
+                        <td th:text="${item.id}">主键ID</td>
+                        <td th:text="${item.productID}">spuid</td>
+                        <td th:text="${item.clientProductID}">cid</td>
+                        <td th:text="${item.spu}">spu</td>
+                        <td th:text="${item.sku}">货号</td>
+                        <td th:text="${item.brand}">品牌</td>
+                        <td th:text="${item.name}">name</td>
+                        <td th:text="${item.description}">描述</td>
+                        <td th:text="${item.genre}">性别</td>
+                        <td th:text="${item.type}">类型</td>
+                        <td th:text="${item.category}">类目</td>
+                        <td th:text="${item.season}">季节</td>
+                        <td th:text="${item.isCarryOver}">经典</td>
+                        <td th:text="${item.color}">颜色</td>
+                        <td th:text="${item.retailPrice}">市场价</td>
+                        <td th:text="${item.madeIn}">产地</td>
+                        <td th:text="${item.composition}">材质</td>
+                        <td th:text="${item.price}">价格</td>
+                        <td th:text="${item.pricesIncludeVat}">含税</td>
+                        <td>
+                            <a class="open-popup" data-title="编辑A商家" th:attr="data-url=@{'/system/dressSpu/edit/'+${item.id}}" data-size="auto" href="#">编辑</a>
+                            <a class="open-popup" data-title="详细信息" th:attr="data-url=@{'/system/dressSpu/detail/'+${item.id}}" data-size="800,600" href="#">详细</a>
+                            <a class="ajax-get" data-msg="您是否确认删除" th:href="@{/system/dressSpu/status/delete(ids=${item.id})}">删除</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div th:replace="/common/fragment :: page"></div>
+        </div>
+    </div>
+<script th:replace="/common/template :: script"></script>
+</body>
+</html>

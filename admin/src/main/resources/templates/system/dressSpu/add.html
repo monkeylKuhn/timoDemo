@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+<body>
+    <div class="layui-form timo-compile">
+    <form th:action="@{/system/dressSpu/save}">
+        <input type="hidden" name="id" th:if="${dressSpu}" th:value="${dressSpu.id}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">spuid</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="productID" placeholder="请输入spuid" th:value="${dressSpu?.productID}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">cid</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="clientProductID" placeholder="请输入cid" th:value="${dressSpu?.clientProductID}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">spu</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="spu" placeholder="请输入spu" th:value="${dressSpu?.spu}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">货号</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="sku" placeholder="请输入货号" th:value="${dressSpu?.sku}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">品牌</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="brand" placeholder="请输入品牌" th:value="${dressSpu?.brand}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">name</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="name" placeholder="请输入name" th:value="${dressSpu?.name}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">描述</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="description" placeholder="请输入描述" th:value="${dressSpu?.description}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="genre" placeholder="请输入性别" th:value="${dressSpu?.genre}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">类型</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="type" placeholder="请输入类型" th:value="${dressSpu?.type}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">类目</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="category" placeholder="请输入类目" th:value="${dressSpu?.category}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">季节</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="season" placeholder="请输入季节" th:value="${dressSpu?.season}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">经典</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="isCarryOver" placeholder="请输入经典" th:value="${dressSpu?.isCarryOver}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">颜色</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="color" placeholder="请输入颜色" th:value="${dressSpu?.color}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">市场价</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="retailPrice" placeholder="请输入市场价" th:value="${dressSpu?.retailPrice}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">产地</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="madeIn" placeholder="请输入产地" th:value="${dressSpu?.madeIn}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">材质</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="composition" placeholder="请输入材质" th:value="${dressSpu?.composition}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">价格</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="price" placeholder="请输入价格" th:value="${dressSpu?.price}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">含税</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="pricesIncludeVat" placeholder="请输入含税" th:value="${dressSpu?.pricesIncludeVat}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">时间</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="productLastUpdated" placeholder="请输入时间" th:value="${dressSpu?.productLastUpdated}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">图片</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" name="photos" placeholder="请输入图片" th:value="${dressSpu?.photos}">
+            </div>
+        </div>
+        <div class="layui-form-item timo-finally">
+            <button class="layui-btn ajax-submit"><i class="fa fa-check-circle"></i> 保存</button>
+            <button class="layui-btn btn-secondary close-popup"><i class="fa fa-times-circle"></i> 关闭</button>
+        </div>
+    </form>
+</div>
+<script th:replace="/common/template :: script"></script>
+</body>
+</html>
