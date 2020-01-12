@@ -1,14 +1,10 @@
 package com.linln.admin.system.controller;
 
-import com.linln.admin.system.validator.DressSpuValid;
-import com.linln.common.enums.StatusEnum;
-import com.linln.common.utils.EntityBeanUtil;
-import com.linln.common.utils.ResultVoUtil;
-import com.linln.common.utils.StatusUtil;
-import com.linln.common.vo.ResultVo;
-import com.linln.modules.system.domain.DressSpu;
-import com.linln.modules.system.service.DressSpuService;
+import java.util.List;
+
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -16,9 +12,22 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
+import com.linln.admin.system.validator.DressSpuValid;
+import com.linln.common.enums.StatusEnum;
+import com.linln.common.utils.EntityBeanUtil;
+import com.linln.common.utils.ResultVoUtil;
+import com.linln.common.utils.StatusUtil;
+import com.linln.common.vo.ResultVo;
+import com.linln.modules.system.domain.DressSpu;
+import com.linln.modules.system.domain.User;
+import com.linln.modules.system.service.DressSpuService;
 
 /**
  * @author 小懒虫
