@@ -2,9 +2,9 @@ package com.linln.admin.system.controller;
 
 import java.util.List;
 
-import org.apache.shiro.SecurityUtils;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.linln.admin.buss.DTO.ExportDTO;
+import com.linln.admin.buss.mapper.DressSpuMapper;
+import com.linln.admin.buss.util.EasyPoiUtils;
 import com.linln.admin.system.validator.DressSpuValid;
 import com.linln.common.enums.StatusEnum;
 import com.linln.common.utils.EntityBeanUtil;
@@ -26,7 +29,6 @@ import com.linln.common.utils.ResultVoUtil;
 import com.linln.common.utils.StatusUtil;
 import com.linln.common.vo.ResultVo;
 import com.linln.modules.system.domain.DressSpu;
-import com.linln.modules.system.domain.User;
 import com.linln.modules.system.service.DressSpuService;
 
 /**
@@ -39,6 +41,9 @@ public class DressSpuController {
 
     @Autowired
     private DressSpuService dressSpuService;
+    
+    @Autowired
+    private DressSpuMapper dressSpuMapper;
 
     /**
      * 列表页面
@@ -124,5 +129,31 @@ public class DressSpuController {
         } else {
             return ResultVoUtil.error(statusEnum.getMessage() + "失败，请重新操作");
         }
+    }
+    
+    @GetMapping("/export")
+    public void export(HttpServletResponse response) {
+        List<ExportDTO> skuExport = dressSpuMapper.export();
+        for (ExportDTO exportDTO : skuExport) {
+            if (exportDTO.getPhotos() != null && !exportDTO.getPhotos().isEmpty()) {
+                String[] urls = exportDTO.getPhotos().split("\\^");
+                if (urls.length >= 1) {
+                    exportDTO.setUrl1(urls[0]);
+                    if (urls.length >= 2) {
+                        exportDTO.setUrl2(urls[1]);
+                        if (urls.length >= 3) {
+                            exportDTO.setUrl3(urls[2]);
+                            if (urls.length >= 4) {
+                                exportDTO.setUrl4(urls[3]);
+                                if (urls.length >= 5) {
+                                    exportDTO.setUrl5(urls[4]);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        EasyPoiUtils.exportExcel(skuExport, "商品信息", "商品信息", ExportDTO.class, "商品信息.xls", response);
     }
 }
