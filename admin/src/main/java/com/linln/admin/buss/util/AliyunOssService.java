@@ -98,13 +98,12 @@ public class AliyunOssService {
 		try {
 			InputStream inputStream = file.getInputStream();
 			
-		    String uuidFileName = UUID.randomUUID().toString().replace(FLAG_CROSSBAR, FLAG_EMPTY_STRING);
-//		    String fname = file.getName();
-//		    System.out.println(fname);
-//		    String suffix = fname.substring(fname.lastIndexOf(FLAG_DOT), fname.length());
-//		    String fileName = uuidFileName.concat(uuidFileName);
+            String uuidFileName = UUID.randomUUID().toString().replace(FLAG_CROSSBAR, FLAG_EMPTY_STRING);
+            String fname = file.getOriginalFilename();
+            String suffix = fname.substring(fname.lastIndexOf(FLAG_DOT), fname.length());
+            String fileName = uuidFileName.concat(suffix);
 		    
-			String fileUrl = coreUpload(uuidFileName,"",inputStream);
+			String fileUrl = coreUpload(fileName,"",inputStream);
 			
 			return fileUrl;
 		} catch (Exception e) {
