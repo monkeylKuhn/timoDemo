@@ -188,21 +188,19 @@ public class OrderController {
             if(order.getWarehouseTime() == null) {
                 order.setWarehouseTime(beOrder.getWarehouseTime());
             }
-        }
-
-        System.out.println("new "+order);
-        Subject subject = SecurityUtils.getSubject();
-        User user = (User)subject.getPrincipal();
-        String type = roleMapper.getRoleNameByUserId(user.getId());
-        if (type.equals("supplier") && order.getSupplierDeliveryStatus() != null
-            && order.getSupplierDeliveryStatus().equals("shipped")) {
-            order.setSupplierTime(LocalDateTime.now().plusHours(7L).toString());
-        }
-        if (type.equals("warehouse") && order.getWarehouseStatus() != null
-            && order.getWarehouseStatus().equals("已发出")) {
-            order.setWarehouseTime(LocalDateTime.now().plusHours(7L).toString());
-        }
-         else {
+            System.out.println("new "+order);
+            Subject subject = SecurityUtils.getSubject();
+            User user = (User)subject.getPrincipal();
+            String type = roleMapper.getRoleNameByUserId(user.getId());
+            if (type.equals("supplier") && order.getSupplierDeliveryStatus() != null
+                && order.getSupplierDeliveryStatus().equals("shipped")) {
+                order.setSupplierTime(LocalDateTime.now().plusHours(7L).toString());
+            }
+            if (type.equals("warehouse") && order.getWarehouseStatus() != null
+                && order.getWarehouseStatus().equals("已发出")) {
+                order.setWarehouseTime(LocalDateTime.now().plusHours(7L).toString());
+            }
+        }else {
              // 获取商品信息 验证库存 价格是否发生改变
              DressProduct dressProduct = getDressProductBySku(order.getSku());
              if (dressProduct == null ||chechSku(dressProduct, order)) {
