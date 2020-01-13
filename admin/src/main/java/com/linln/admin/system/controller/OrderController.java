@@ -2,6 +2,7 @@ package com.linln.admin.system.controller;
 
 import java.net.URI;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
@@ -32,11 +33,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.linln.admin.buss.mapper.OrderMapper;
 import com.linln.admin.buss.mapper.RoleMapper;
+import com.linln.admin.buss.model.DressProduct;
+import com.linln.admin.buss.model.DressResult;
+import com.linln.admin.buss.model.DressSkuSize;
 import com.linln.admin.buss.model.OrderReturn;
 import com.linln.admin.buss.model.ShippingAddress;
 import com.linln.admin.buss.model.SubmitOrder;
+import com.linln.admin.buss.task.HttpClientUtil;
 import com.linln.admin.system.validator.OrderValid;
 import com.linln.common.enums.StatusEnum;
 import com.linln.common.utils.EntityBeanUtil;
@@ -160,14 +164,30 @@ public class OrderController {
             Order beOrder = orderService.getById(order.getId());
             System.out.println("old"+beOrder);
             EntityBeanUtil.copyProperties(beOrder, order);
-            order.setSupplierBarCode(beOrder.getSupplierBarCode());
-            order.setSupplierDeliveryNo(beOrder.getSupplierDeliveryNo());
-            order.setSupplierDeliveryStatus(beOrder.getSupplierDeliveryStatus());
-            order.setSupplierTime(beOrder.getSupplierTime());
-            order.setWarehouseBarCode(beOrder.getWarehouseBarCode());
-            order.setWarehouseDeliveryNo(beOrder.getWarehouseDeliveryNo());
-            order.setWarehouseStatus(beOrder.getWarehouseStatus());
-            order.setWarehouseTime(beOrder.getWarehouseTime());
+            if(order.getSupplierBarCode() == null) {
+                order.setSupplierBarCode(beOrder.getSupplierBarCode());
+            }
+            if(order.getSupplierDeliveryNo() == null) {
+                order.setSupplierDeliveryNo(beOrder.getSupplierDeliveryNo());
+            }
+            if(order.getSupplierDeliveryStatus()==null) {
+                order.setSupplierDeliveryStatus(beOrder.getSupplierDeliveryStatus());
+            }
+            if(order.getSupplierTime() ==null) {
+                order.setSupplierTime(beOrder.getSupplierTime());
+            }
+            if(order.getWarehouseBarCode()==null) {
+                order.setWarehouseBarCode(beOrder.getWarehouseBarCode());
+            }
+            if(order.getWarehouseDeliveryNo()==null) {
+                order.setWarehouseDeliveryNo(beOrder.getWarehouseDeliveryNo());
+            }
+            if(order.getWarehouseStatus() ==null) {
+                order.setWarehouseStatus(beOrder.getWarehouseStatus());
+            }
+            if(order.getWarehouseTime() == null) {
+                order.setWarehouseTime(beOrder.getWarehouseTime());
+            }
         }
 
         System.out.println("new "+order);
@@ -182,9 +202,17 @@ public class OrderController {
             && order.getWarehouseStatus().equals("已发出")) {
             order.setWarehouseTime(LocalDateTime.now().plusHours(7L).toString());
         }
-        // else {
-        // this.submitOrder(order);
-        // }
+         else {
+             // 获取商品信息 验证库存 价格是否发生改变
+             DressProduct dressProduct = getDressProductBySku(order.getSku());
+             if (dressProduct == null ||chechSku(dressProduct, order)) {
+                 return ResultVoUtil.error(400,"商品信息有误");
+             }
+             String submit = this.submitOrder(order);
+             if(submit!=null) {
+                 return ResultVoUtil.error(400, submit);
+             }
+         }
 
         // 保存数据
         orderService.save(order);
@@ -252,6 +280,49 @@ public class OrderController {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return "";
+        return null;
+    }
+    /**
+     * 校验商品
+     * 
+     * @param dressProduct
+     * @param dressProduct2
+     * @return
+     */
+    private boolean chechSku(DressProduct dressProduct, Order order) {
+        if (!dressProduct.getPrice().equals(order.getPrice())) {
+            return true;
+        }
+        DressSkuSize dressSkuSize = new DressSkuSize();
+        for (DressSkuSize size : dressProduct.getSizes()) {
+            if (size.getSize().equals(order.getSize()))
+                dressSkuSize = size;
+        }
+        if (dressSkuSize == null || Integer.parseInt(dressSkuSize.getStock()) == 0) {
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * 获取对应商品校验
+     * 
+     * @param productId
+     * @return
+     */
+    private DressProduct getDressProductBySku(String productId) {
+        String url = "https://api.dresscode.cloud/channels/v2/api/feeds/en/clients/llf/products/" + productId
+            + "?channelKey=0198873e-1fde-4783-8719-4f1d0790eb6e";
+        HashMap<String, String> head = new HashMap<String, String>();
+        head.put("Ocp-Apim-Subscription-Key", "107b04efec074c6f8f8abed90d224802");
+        try {
+            String sendGetRequest = HttpClientUtil.sendGetRequest(url, 25000, head);
+            DressResult result = JSONObject.parseObject(sendGetRequest, DressResult.class);
+            return result.getData().get(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

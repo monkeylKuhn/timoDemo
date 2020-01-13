@@ -90,19 +90,25 @@
 					</div>
 				</div>
 			</div>
-
-
+				
 			<div class="layui-form-item">
-				<label class="layui-form-label">供应商barcode</label>
-				<div class="layui-input-inline">
-					<button type="button" class="layui-btn upload-image"
-						name="supplierBarCode" th:value="${order?.supplierBarCode}"
-						up-field="path" up-url="/upload/image">
-						<i class="layui-icon"></i>上传图片
-					</button>
-				</div>
-				<div class="upload-show"></div>
+					<label class="layui-form-label">供应商物流单号</label>
+					<div class="layui-input-inline">
+						<input class="layui-input" type="text" name="supplierDeliveryNo"
+							placeholder="请输入市场价" th:value="${order?.supplierDeliveryNo}">
+					</div>
 			</div>
+			<div class="layui-form-item">
+					<label class="layui-form-label">供应商订单状态</label>
+					<div class="layui-input-inline">
+						<select id="orderlist" name="supplierDeliveryStatus"
+							th:value="${order?.supplierDeliveryStatus}">
+							<option>shipped</option>
+							<option>out of stock</option>
+						</select>
+					</div>
+			</div>
+				
 
 
 

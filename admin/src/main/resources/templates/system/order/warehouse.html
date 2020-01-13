@@ -54,7 +54,7 @@
                         <td th:text="${item.supplierDeliveryStatus}">供应商发货状态</td>
                         <td th:text="${item.supplierDeliveryNo}">供应商物流号</td>
                         <td th:text="${item.supplierTime}">供应商发货时间</td>
-                        <td th:text="${item.warehouseBarCode}">仓库barcode</td>
+                        <td><img th:src = "${item.warehouseBarCode}"></img></td>
                         <td th:text="${item.quality}">质检</td>
                         <td th:text="${item.warehouseStatus}">仓库发货状态</td>
                         <td th:text="${item.warehouseDeliveryNo}">仓库物流号</td>

@@ -49,7 +49,7 @@
                         <td th:text="${item.orderStatus}">订单状态</td>
                         <td th:text="${item.supplierDeliveryStatus}">供应商发货状态</td>
                         <td th:text="${item.supplierDeliveryNo}">供应商物流号</td>
-                        <td th:text="${item.supplierBarCode}">供应商barcode</td>
+                        <td><img th:src = "${item.supplierBarCode}"></img></td>
                         <td th:text="${item.supplierTime}">供应商发货时间</td>
                         <td>
                             <a class="open-popup" data-title="编辑订单" th:attr="data-url=@{'/system/order/edit/'+${item.id}}" data-size="auto" href="#">编辑</a>
