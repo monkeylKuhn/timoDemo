@@ -60,7 +60,7 @@ public class OrderController {
 
     @Autowired
     private RoleMapper roleMapper;
-    
+
     /**
      * 列表页面
      */
@@ -112,7 +112,7 @@ public class OrderController {
         Subject subject = SecurityUtils.getSubject();
         User user = (User)subject.getPrincipal();
         String type = roleMapper.getRoleNameByUserId(user.getId());
-       
+
         if (type.equals("supplier")) {
             return "/system/order/supplier-update";
         }
@@ -122,6 +122,27 @@ public class OrderController {
 
         return "/system/order/update";
     }
+    
+    /**
+     * 跳转到编辑页面
+     */
+    @GetMapping("/update/supplier/{id}")
+    @RequiresPermissions("system:order:edit")
+    public String upSupplierBarCode(@PathVariable("id") Order order, Model model) {
+        model.addAttribute("order", order);
+        return "/system/order/update-supplierBarCode";
+    }
+    
+    /**
+     * 跳转到编辑页面
+     */
+    @GetMapping("/update/warehouse/{id}")
+    @RequiresPermissions("system:order:edit")
+    public String upWarehouseBarCode(@PathVariable("id") Order order, Model model) {
+        model.addAttribute("order", order);
+        return "/system/order/update-warehouseBarCode";
+    }
+
 
     /**
      * 保存添加/修改的数据
@@ -134,27 +155,32 @@ public class OrderController {
     @ResponseBody
     public ResultVo save(@Validated OrderValid valid, Order order) {
         // 复制保留无需修改的数据
-        Order beOrder = new Order();
         if (order.getId() != null) {
-            beOrder = orderService.getById(order.getId());
-            System.out.println("old" + beOrder);
+            System.out.println("new "+order);
+            Order beOrder = orderService.getById(order.getId());
+            System.out.println("old"+beOrder);
             EntityBeanUtil.copyProperties(beOrder, order);
-            System.out.println("new" + order);
-        }
-
-        Subject subject = SecurityUtils.getSubject();
-        User user = (User)subject.getPrincipal();
-        String type = roleMapper.getRoleNameByUserId(user.getId());
-        if (type.equals("supplier") && order.getSupplierDeliveryStatus()!=null && order.getSupplierDeliveryStatus().equals("shipped")) {
-            order.setSupplierTime(LocalDateTime.now().plusHours(7L).toString());
-        }
-        if (type.equals("warehouse")) {
             order.setSupplierBarCode(beOrder.getSupplierBarCode());
             order.setSupplierDeliveryNo(beOrder.getSupplierDeliveryNo());
             order.setSupplierDeliveryStatus(beOrder.getSupplierDeliveryStatus());
             order.setSupplierTime(beOrder.getSupplierTime());
-            if(order.getWarehouseStatus()!=null && order.getWarehouseStatus().equals("已发出"))
-                order.setWarehouseTime(LocalDateTime.now().plusHours(7L).toString());
+            order.setWarehouseBarCode(beOrder.getWarehouseBarCode());
+            order.setWarehouseDeliveryNo(beOrder.getWarehouseDeliveryNo());
+            order.setWarehouseStatus(beOrder.getWarehouseStatus());
+            order.setWarehouseTime(beOrder.getWarehouseTime());
+        }
+
+        System.out.println("new "+order);
+        Subject subject = SecurityUtils.getSubject();
+        User user = (User)subject.getPrincipal();
+        String type = roleMapper.getRoleNameByUserId(user.getId());
+        if (type.equals("supplier") && order.getSupplierDeliveryStatus() != null
+            && order.getSupplierDeliveryStatus().equals("shipped")) {
+            order.setSupplierTime(LocalDateTime.now().plusHours(7L).toString());
+        }
+        if (type.equals("warehouse") && order.getWarehouseStatus() != null
+            && order.getWarehouseStatus().equals("已发出")) {
+            order.setWarehouseTime(LocalDateTime.now().plusHours(7L).toString());
         }
         // else {
         // this.submitOrder(order);
