@@ -7,35 +7,34 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import com.alibaba.fastjson.JSONObject;
-import com.linln.admin.buss.mapper.DressSkuMapper;
-import com.linln.admin.buss.model.DressSkuSize;
-import com.linln.admin.buss.model.DressStock;
-import com.linln.admin.buss.model.DressStockResult;
+import com.linln.admin.buss.mapper.AldSkuMapper;
+import com.linln.admin.buss.model.AldSkuSize;
+import com.linln.admin.buss.model.AldStock;
+import com.linln.admin.buss.model.AldStockResult;
 import com.linln.admin.buss.util.EmailUtils;
 
 @Component
-public class TestStockTask {
+public class AldStockTask {
 	
 	@Autowired
-	DressSkuMapper dressSkuMapper;
+	AldSkuMapper dressSkuMapper;
 	
 //	@Scheduled(cron = "0 0/20 * * * ?")
 //	@Scheduled(fixedDelay=1000*60*10)
 	public void fetchStock() {
-	    System.err.println(new Date().toLocaleString()+"开始执行库存更新"+System.currentTimeMillis());
-		String url = "https://api.dresscode.cloud/channels/v2/api/feeds/en/clients/llf/stocks?channelKey=0198873e-1fde-4783-8719-4f1d0790eb6e";
+	    System.err.println(new Date().toLocaleString()+"adda开始执行库存更新"+System.currentTimeMillis());
+		String url = "https://api.dresscode.cloud/channels/v2/api/feeds/en/clients/adda/stocks?channelKey=c05b4b60-a34e-4a06-81e1-9d57d047d017";
 		HashMap<String, String> head = new HashMap<String,String>();
 		head.put("Ocp-Apim-Subscription-Key", "107b04efec074c6f8f8abed90d224802");
 		try {
 			String sendGetRequest = HttpClientUtil.sendGetRequest(url, 600000, head);
-			DressStockResult result = JSONObject.parseObject(sendGetRequest, DressStockResult.class);
+			AldStockResult result = JSONObject.parseObject(sendGetRequest, AldStockResult.class);
 			sendGetRequest = null;
-			List<DressStock> dressProductList = result.getData();
+			List<AldStock> dressProductList = result.getData();
 			if (CollectionUtils.isEmpty(dressProductList)) {
 				return;
 			}
@@ -52,8 +51,8 @@ public class TestStockTask {
 			// 设置  状态1  既更新中，未被更新操作的商品库存为0 
 			
 			int updateStatus = dressSkuMapper.updateStatus(1);
-			for (DressStock dressStock : dressProductList) {
-			    DressSkuSize dressSkuSize = dressSkuMapper.selectByProductIDandSize(dressStock.getProductID(), dressStock.getSize());
+			for (AldStock dressStock : dressProductList) {
+			    AldSkuSize dressSkuSize = dressSkuMapper.selectByProductIDandSize(dressStock.getProductID(), dressStock.getSize());
 			    if (dressSkuSize != null) {
 			        String price = dressSkuSize.getPrice();
 			        String retailPrice = dressSkuSize.getRetailPrice();
@@ -87,28 +86,28 @@ public class TestStockTask {
 			// 查询有库存更新的   2  3  4
 			Set<Integer> statusList = new HashSet<>();
 			statusList.add(2);statusList.add(3);statusList.add(4);
-			List<DressSkuSize> list = dressSkuMapper.selectByStatusAndStock(null, statusList);
+			List<AldSkuSize> list = dressSkuMapper.selectByStatusAndStock(null, statusList);
 			
 			// 查询新插入的  6
 			Set<Integer> statusList2 = new HashSet<>();
 			statusList2.add(6);
-			List<DressSkuSize> list2 = dressSkuMapper.selectByStatusAndStock(null, statusList2);
+			List<AldSkuSize> list2 = dressSkuMapper.selectByStatusAndStock(null, statusList2);
 			
 			// 查询库存要更新为0的    1 and stock>0
 			Set<Integer> statusList3 = new HashSet<>();
 			statusList3.add(1);
-			List<DressSkuSize> list3 = dressSkuMapper.selectByStatusAndStock("0", statusList3);
+			List<AldSkuSize> list3 = dressSkuMapper.selectByStatusAndStock("0", statusList3);
 			
 			if (!CollectionUtils.isEmpty(list)||!CollectionUtils.isEmpty(list2)||!CollectionUtils.isEmpty(list3)) {
 			    
 		        if(!CollectionUtils.isEmpty(list)) {
-		            EmailUtils.sendEmail(JSONObject.toJSONString(list), "lungolivigno--库存有更新");
+		            EmailUtils.sendEmail(JSONObject.toJSONString(list), "alducadaosta--库存有更新");
 	            }
 		        if(!CollectionUtils.isEmpty(list2)) {
-		            EmailUtils.sendEmail(JSONObject.toJSONString(list2), "lungolivigno--新入库数据");
+		            EmailUtils.sendEmail(JSONObject.toJSONString(list2), "alducadaosta--新入库数据");
 		        }
 		        if(!CollectionUtils.isEmpty(list3)) {
-		            EmailUtils.sendEmail(JSONObject.toJSONString(list3), "lungolivigno--库存更新为0");
+		            EmailUtils.sendEmail(JSONObject.toJSONString(list3), "alducadaosta--库存更新为0");
 		        }
 		        
 			    
@@ -120,7 +119,7 @@ public class TestStockTask {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	      System.err.println(new Date().toLocaleString()+"结束执行库存更新"+System.currentTimeMillis());
+	      System.err.println(new Date().toLocaleString()+"adda结束执行库存更新"+System.currentTimeMillis());
 	}
 	
 }
