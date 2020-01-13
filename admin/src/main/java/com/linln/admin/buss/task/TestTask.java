@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -14,8 +15,6 @@ import com.linln.admin.buss.mapper.DressSkuMapper;
 import com.linln.admin.buss.model.DressProduct;
 import com.linln.admin.buss.model.DressResult;
 import com.linln.admin.buss.model.DressSkuSize;
-import com.linln.modules.system.repository.DressSpuRepository;
-import com.linln.modules.system.service.DressSpuService;
 
 @Component
 public class TestTask {
@@ -27,7 +26,7 @@ public class TestTask {
 	DressSkuMapper dressSkuMapper;
 	
 //	@Scheduled(cron = "0 0/2 * * * ?")
-//	@Scheduled(fixedDelay=1000*60*10)
+//	@Scheduled(fixedDelay=1000*60*30)
 	public void fetchProduct() {
 		
 		System.err.println(new Date().toLocaleString()+"商品更新开始"+System.currentTimeMillis());

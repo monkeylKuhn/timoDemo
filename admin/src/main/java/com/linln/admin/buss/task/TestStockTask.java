@@ -25,7 +25,7 @@ public class TestStockTask {
 	DressSkuMapper dressSkuMapper;
 	
 //	@Scheduled(cron = "0 0/20 * * * ?")
-//	@Scheduled(fixedDelay=1000*60*5)
+//	@Scheduled(fixedDelay=1000*60*10)
 	public void fetchStock() {
 	    System.err.println(new Date().toLocaleString()+"开始执行库存更新"+System.currentTimeMillis());
 		String url = "https://api.dresscode.cloud/channels/v2/api/feeds/en/clients/llf/stocks?channelKey=0198873e-1fde-4783-8719-4f1d0790eb6e";
@@ -102,13 +102,13 @@ public class TestStockTask {
 			if (!CollectionUtils.isEmpty(list)||!CollectionUtils.isEmpty(list2)||!CollectionUtils.isEmpty(list3)) {
 			    
 		        if(!CollectionUtils.isEmpty(list)) {
-		            EmailUtils.sendEmail(JSONObject.toJSONString(list), "测试发送邮件--库存有更新");
+		            EmailUtils.sendEmail(JSONObject.toJSONString(list), "A--库存有更新");
 	            }
 		        if(!CollectionUtils.isEmpty(list2)) {
-		            EmailUtils.sendEmail(JSONObject.toJSONString(list2), "测试发送邮件--新入库数据");
+		            EmailUtils.sendEmail(JSONObject.toJSONString(list2), "A--新入库数据");
 		        }
 		        if(!CollectionUtils.isEmpty(list3)) {
-		            EmailUtils.sendEmail(JSONObject.toJSONString(list3), "测试发送邮件--库存更新为0");
+		            EmailUtils.sendEmail(JSONObject.toJSONString(list3), "A--库存更新为0");
 		        }
 		        
 			    
