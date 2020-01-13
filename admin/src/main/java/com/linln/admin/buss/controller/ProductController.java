@@ -42,6 +42,7 @@ import com.linln.admin.buss.model.DressSkuSize;
 import com.linln.admin.buss.model.OrderReturn;
 import com.linln.admin.buss.model.ShippingAddress;
 import com.linln.admin.buss.model.SubmitOrder;
+import com.linln.admin.buss.task.AldTask;
 import com.linln.admin.buss.task.HttpClientUtil;
 import com.linln.admin.buss.task.TestStockTask;
 import com.linln.admin.buss.task.TestTask;
@@ -69,10 +70,20 @@ public class ProductController {
     @Autowired
     TestStockTask testStockTask;
     
+    @Autowired
+    AldTask aldTask;
+    
     @ApiOperation("spu")
     @GetMapping("/spu")
     public Object fetchSpu() {
         testTask.fetchProduct();
+        return true;
+    }
+    
+    @ApiOperation("addaspu")
+    @GetMapping("/addaspu")
+    public Object fetchaddaSpu() {
+        aldTask.fetchProduct();
         return true;
     }
 

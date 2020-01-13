@@ -14,13 +14,13 @@ public interface AldProductMapper {
 
 
      @Select({
-       "SELECT COUNT(1) FROM s_dress_spu WHERE productid = #{productId}"
+       "SELECT COUNT(1) FROM s_ald_spu WHERE productid = #{productId}"
      })
     Integer count(String productId);
      
      
      @Update({
-       "UPDATE  s_dress_spu SET ",
+       "UPDATE  s_ald_spu SET ",
        "    spu = #{spu},",
        "    sku = #{sku}, ",
        "    brand = #{brand}, ",
@@ -39,7 +39,7 @@ public interface AldProductMapper {
      
      @Insert({
          "<script>",
-         "INSERT INTO s_dress_spu(productid,client_productid,spu,sku,brand,name,description,genre,type,",
+         "INSERT INTO s_ald_spu(productid,client_productid,spu,sku,brand,name,description,genre,type,",
          "category,season,is_carry_over,color,retail_price,price,prices_include_vat,product_last_updated,photos,made_in,composition)  ",
          "values(#{productID},#{clientProductID},#{spu},#{sku},#{brand},#{name},#{description},#{genre},#{type},",
          "#{category},#{season},#{isCarryOver},#{color},#{retailPrice},#{price},#{pricesIncludeVat},#{productLastUpdated},#{photos},#{madeIn},#{composition})",
@@ -74,7 +74,7 @@ public interface AldProductMapper {
          " ds.stock , ",
          " dp.photos  ",
          "FROM ",
-         " s_dress_spu AS dp ",
+         " s_ald_spu AS dp ",
          "RIGHT JOIN dressskusize AS ds ON dp.productid = ds.productID"
      })
      List<ExportDTO> export();

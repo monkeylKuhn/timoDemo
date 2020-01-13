@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+<body>
+    <div class="timo-detail-page">
+        <div class="timo-detail-title">基本信息</div>
+        <table class="layui-table timo-detail-table">
+            <colgroup>
+                <col width="100px"><col>
+                <col width="100px"><col>
+            </colgroup>
+            <tbody>
+                <tr>
+                    <th>主键ID</th>
+                    <td th:text="${aldSpu.id}"></td>
+                    <th>spuid</th>
+                    <td th:text="${aldSpu.productID}"></td>
+                </tr>
+                <tr>
+                    <th>cid</th>
+                    <td th:text="${aldSpu.clientProductID}"></td>
+                    <th>spu</th>
+                    <td th:text="${aldSpu.spu}"></td>
+                </tr>
+                <tr>
+                    <th>货号</th>
+                    <td th:text="${aldSpu.sku}"></td>
+                    <th>品牌</th>
+                    <td th:text="${aldSpu.brand}"></td>
+                </tr>
+                <tr>
+                    <th>商品名</th>
+                    <td th:text="${aldSpu.name}"></td>
+                    <th>描述</th>
+                    <td th:text="${aldSpu.description}"></td>
+                </tr>
+                <tr>
+                    <th>性别</th>
+                    <td th:text="${aldSpu.genre}"></td>
+                    <th>类型</th>
+                    <td th:text="${aldSpu.type}"></td>
+                </tr>
+                <tr>
+                    <th>类目</th>
+                    <td th:text="${aldSpu.category}"></td>
+                    <th>季节</th>
+                    <td th:text="${aldSpu.season}"></td>
+                </tr>
+                <tr>
+                    <th>经典</th>
+                    <td th:text="${aldSpu.isCarryOver}"></td>
+                    <th>颜色</th>
+                    <td th:text="${aldSpu.color}"></td>
+                </tr>
+                <tr>
+                    <th>市场价</th>
+                    <td th:text="${aldSpu.retailPrice}"></td>
+                    <th>价格</th>
+                    <td th:text="${aldSpu.price}"></td>
+                </tr>
+                <tr>
+                    <th>含税</th>
+                    <td th:text="${aldSpu.pricesIncludeVat}"></td>
+                    <th>时间</th>
+                    <td th:text="${aldSpu.productLastUpdated}"></td>
+                </tr>
+                <tr>
+                    <th>产地</th>
+                    <td th:text="${aldSpu.madeIn}"></td>
+                    <th>材质</th>
+                    <td th:text="${aldSpu.composition}"></td>
+                </tr>
+                <tr>
+                    <th>图片</th>
+                    <td th:text="${aldSpu.photos}" colspan="3"></td>
+                </tr>
+                <tr>
+                    <th>创建者</th>
+                    <td th:text="${aldSpu.createBy?.nickname}"></td>
+                    <th>更新者</th>
+                    <td th:text="${aldSpu.updateBy?.nickname}"></td>
+                </tr>
+                <tr>
+                    <th>创建时间</th>
+                    <td th:text="${#dates.format(aldSpu.createDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                    <th>更新时间</th>
+                    <td th:text="${#dates.format(aldSpu.updateDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+<script th:replace="/common/template :: script"></script>
+</body>
+</html>

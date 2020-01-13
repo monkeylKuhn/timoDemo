@@ -15,7 +15,7 @@ public interface AldSkuMapper {
 
      @Insert({
          "<script>",
-         "INSERT INTO dressskusize(productID,size,stock,retailPrice,price,createTime)  ",
+         "INSERT INTO aldskusize(productID,size,stock,retailPrice,price,createTime)  ",
          "<foreach collection='list' item='item' open='VALUES' close='' separator=','>", 
          "(#{item.productID},#{item.size},#{item.stock},#{item.retailPrice},#{item.price},#{item.createTime})",
          "</foreach>", 
@@ -25,7 +25,7 @@ public interface AldSkuMapper {
      
      @Insert({
          "<script>",
-         "INSERT INTO dressskusize(productID,size,stock,retailPrice,price,status)  values",
+         "INSERT INTO aldskusize(productID,size,stock,retailPrice,price,status)  values",
          "(#{productID},#{size},#{stock},#{retailPrice},#{price},6)",
          "</script>"
      })
@@ -34,14 +34,14 @@ public interface AldSkuMapper {
      // 将所有数据设置为更新中状态
      @Update({
          "<script>",
-         "UPDATE dressskusize SET status = #{status}",
+         "UPDATE aldskusize SET status = #{status}",
          "</script>"
      })
      int updateStatus(@Param("status")int status);
      
      @Update({
          "<script>",
-         "UPDATE dressskusize SET stock = 0, status = 0 WHERE status = #{status}",
+         "UPDATE aldskusize SET stock = 0, status = 0 WHERE status = #{status}",
          "</script>"
      })
      int updateStatusByStock(@Param("status")int status);
@@ -49,7 +49,7 @@ public interface AldSkuMapper {
      // 将所有数据设置为更新中状态
      @Update({
          "<script>",
-         "UPDATE dressskusize SET status = #{status} WHERE id = #{id}",
+         "UPDATE aldskusize SET status = #{status} WHERE id = #{id}",
          "</script>"
      })
      int updateStatusById(@Param("status")int status,@Param("id")Long id);
@@ -57,7 +57,7 @@ public interface AldSkuMapper {
      
      @Update({
          "<script>",
-         " UPDATE dressskusize ",
+         " UPDATE aldskusize ",
          "<set>",
          " <if test=\" stock != null \">", " stock = #{stock},", "</if>",
          " <if test=\" retailPrice != null \">", " retailPrice = #{retailPrice},", "</if>",
@@ -70,7 +70,7 @@ public interface AldSkuMapper {
      Integer update(AldSkuSize dressSkuSize);     
      
      @Select({
-         "SELECT id,productID,size,stock,retailPrice,price FROM dressskusize WHERE productID = #{productId} and size = #{size}"
+         "SELECT id,productID,size,stock,retailPrice,price FROM aldskusize WHERE productID = #{productId} and size = #{size}"
        })
      AldSkuSize selectByProductIDandSize(@Param("productId")String productId,@Param("size")String size);
      
@@ -79,7 +79,7 @@ public interface AldSkuMapper {
              " SELECT ",
              "productID,size,stock",
              " FROM",
-             "   dressskusize",
+             "   aldskusize",
              "<where>",
              " <if test=\" stock != null \">", " stock > #{stock}", "</if>",             
              "<if test=\"sList!=null and sList.size()>0 \">",
