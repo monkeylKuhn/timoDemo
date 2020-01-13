@@ -1,13 +1,9 @@
 package com.linln.admin.system.controller;
 
-import com.linln.admin.system.validator.AldSpuValid;
-import com.linln.common.enums.StatusEnum;
-import com.linln.common.utils.EntityBeanUtil;
-import com.linln.common.utils.ResultVoUtil;
-import com.linln.common.utils.StatusUtil;
-import com.linln.common.vo.ResultVo;
-import com.linln.modules.system.domain.AldSpu;
-import com.linln.modules.system.service.AldSpuService;
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -16,9 +12,24 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
+import com.linln.admin.buss.DTO.ExportDTO;
+import com.linln.admin.buss.mapper.AldSpuExportMapper;
+import com.linln.admin.buss.util.EasyPoiUtils;
+import com.linln.admin.system.validator.AldSpuValid;
+import com.linln.common.enums.StatusEnum;
+import com.linln.common.utils.EntityBeanUtil;
+import com.linln.common.utils.ResultVoUtil;
+import com.linln.common.utils.StatusUtil;
+import com.linln.common.vo.ResultVo;
+import com.linln.modules.system.domain.AldSpu;
+import com.linln.modules.system.service.AldSpuService;
 
 /**
  * @author 小懒虫
@@ -30,7 +41,8 @@ public class AldSpuController {
 
     @Autowired
     private AldSpuService aldSpuService;
-
+    @Autowired
+    AldSpuExportMapper aldSpuExportMapper;
     /**
      * 列表页面
      */
@@ -117,4 +129,30 @@ public class AldSpuController {
             return ResultVoUtil.error(statusEnum.getMessage() + "失败，请重新操作");
         }
     }
+    
+    @GetMapping("/export")
+    public void export(HttpServletResponse response) {
+        List<ExportDTO> skuExport = aldSpuExportMapper.export();
+        for (ExportDTO exportDTO : skuExport) {
+            if (exportDTO.getPhotos() != null && !exportDTO.getPhotos().isEmpty()) {
+                String[] urls = exportDTO.getPhotos().split("\\^");
+                if (urls.length >= 1) {
+                    exportDTO.setUrl1(urls[0]);
+                    if (urls.length >= 2) {
+                        exportDTO.setUrl2(urls[1]);
+                        if (urls.length >= 3) {
+                            exportDTO.setUrl3(urls[2]);
+                            if (urls.length >= 4) {
+                                exportDTO.setUrl4(urls[3]);
+                                if (urls.length >= 5) {
+                                    exportDTO.setUrl5(urls[4]);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        EasyPoiUtils.exportExcel(skuExport, "商品信息", "商品信息", ExportDTO.class, "商品信息.xls", response);
+    }    
 }
