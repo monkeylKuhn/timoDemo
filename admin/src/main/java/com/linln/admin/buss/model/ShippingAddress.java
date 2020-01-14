@@ -5,23 +5,19 @@ import lombok.Data;
 @Data
  public class ShippingAddress {
      
-     private String businessName;
+     private String businessName = "ROCA INTERNATIONAL LIMITED";
      
-     private String name;
+     private String name = "ROCA INTERNATIONAL LIMITED SURNAME:ROCA INTERNATIONAL LIMITED";
      
-     private String surname;
+     private String email = "rocalimitedhk@hotmail.com";
      
-     private String email;
+     private String streetName = "UNIT B ON 7TH FLOOR HUNG CHEUNG INDUSTRIAL CENTRE(PHASE  II)NO.10 TSING YEUNG CIRCUIT TUEN MUN NEW TERRITORIES";
      
-     private String streetName;
+     private String city = "hongkong";
      
-     private String streetNumber;
+     private String zip = "999077";
      
-     private String city;
+     private String state = "hongkong";
      
-     private String zip;
-     
-     private String state;
-     
-     private String country;
+     private String country = "China";
 }

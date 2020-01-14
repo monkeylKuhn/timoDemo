@@ -16,7 +16,7 @@
 					<label class="layui-form-label">orderNo</label>
 					<div class="layui-input-block">
 						<input type="text" name="orderNo" th:value="${param.orderNo}"
-							placeholder="请输入d订单编号" autocomplete="off" class="layui-input">
+							placeholder="Please enter the order number" autocomplete="off" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-inline">
@@ -33,30 +33,29 @@
 				<table class="layui-table timo-table">
 					<thead>
 						<tr>
-							<th>订单号</th>
-							<th>下单时间</th>
-							<th>供应商名称</th>
-							<th>商品sku</th>
-							<th>货号</th>
-							<th>品牌</th>
-							<th>尺码</th>
-							<th>颜色</th>
-							<th>季节</th>
-							<th>价格</th>
-							<th>市场价</th>
-							<th>订单状态</th>
-							<th>供应商发货状态</th>
-							<th>供应商物流号</th>
-							<th>供应商barcode</th>
-							<th>供应商发货时间</th>
-							<th>操作</th>
+							<th>Order NO</th>
+							<th>Order Time</th>
+							<th>Supplier Sku</th>
+							<th>Item Code</th>
+							<th>Brand</th>
+							<th>Size</th>
+							<th>Color</th>
+							<th>Season</th>
+							<th>Settle Price</th>
+							<th>Retail Price</th>
+							<th>Order Status</th>
+							<th>Shipment Status</th>
+							<th>Delivery Company</th>
+							<th>Tracking No</th>
+							<th>Barcode</th>
+							<th>Shipment Time</th>
+							<th>Operation</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="item:${list}">
 							<td th:text="${item.orderNo}">订单号</td>
 							<td th:text="${item.submitTime}">下单时间</td>
-							<td th:text="${item.supplierName}">供应商名称</td>
 							<td th:text="${item.sku}">商品sku</td>
 							<td th:text="${item.artNo}">货号</td>
 							<td th:text="${item.brand}">品牌</td>
@@ -67,8 +66,9 @@
 							<td th:text="${item.retailPrice}">市场价</td>
 							<td th:text="${item.orderStatus}">订单状态</td>
 							<td th:text="${item.supplierDeliveryStatus}">供应商发货状态</td>
+							<td th:text="${item.supplierDelivery}">供应商物流公司</td>
 							<td th:text="${item.supplierDeliveryNo}">供应商物流号</td>
-							<td><img th:src="${item.supplierBarCode}"></img></td>
+							<td><a th:href = "${item.supplierBarCode}"><img th:src="${item.supplierBarCode}"></img></a></td>
 							<td th:text="${item.supplierTime}">供应商发货时间</td>
 							<td><a class="open-popup" data-title="编辑订单"
 								th:attr="data-url=@{'/system/order/edit/'+${item.id}}"

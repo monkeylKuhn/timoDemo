@@ -16,7 +16,7 @@
 					<label class="layui-form-label">orderNo</label>
 					<div class="layui-input-block">
 						<input type="text" name="orderNo" th:value="${param.orderNo}"
-							placeholder="请输入d订单编号" autocomplete="off" class="layui-input">
+							placeholder="请输入订单编号" autocomplete="off" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-inline">
@@ -51,12 +51,14 @@
 							<th>市场价</th>
 							<th>订单状态</th>
 							<th>供应商发货状态</th>
+							<th>供应商物流公司</th>
 							<th>供应商物流号</th>
 							<th>供应商barcode</th>
 							<th>供应商发货时间</th>
 							<th>仓库barcode</th>
 							<th>质检</th>
 							<th>仓库发货状态</th>
+							<th>仓库物流公司</th>
 							<th>仓库物流号</th>
 							<th>仓库发货时间</th>
 							<th>操作</th>
@@ -77,12 +79,14 @@
 							<td th:text="${item.retailPrice}">市场价</td>
 							<td th:text="${item.orderStatus}">订单状态</td>
 							<td th:text="${item.supplierDeliveryStatus}">供应商发货状态</td>
+							<td th:text="${item.supplierDelivery}">供应商物流公司</td>
 							<td th:text="${item.supplierDeliveryNo}">供应商物流号</td>
-							<td><img th:src="${item.supplierBarCode}"></img></td>
+							<td><a th:href = "${item.supplierBarCode}"><img th:src="${item.supplierBarCode}"></img></a></td>
 							<td th:text="${item.supplierTime}">供应商发货时间</td>
-							<td><img th:src="${item.warehouseBarCode}"></img></td>
+							<td><a th:href = "${item.warehouseBarCode}"><img th:src="${item.warehouseBarCode}"></img></a></td>
 							<td th:text="${item.quality}">质检</td>
 							<td th:text="${item.warehouseStatus}">仓库发货状态</td>
+							<td th:text="${item.warehouseDelivery}">仓库物流号公司</td>
 							<td th:text="${item.warehouseDeliveryNo}">仓库物流号</td>
 							<td th:text="${item.warehouseTime}">仓库发货时间</td>
 							<td><a class="open-popup" data-title="编辑订单"

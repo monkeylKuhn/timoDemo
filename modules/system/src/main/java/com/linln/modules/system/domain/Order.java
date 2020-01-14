@@ -66,6 +66,8 @@ public class Order implements Serializable {
     private String retailPrice;
     // 订单状态
     private String orderStatus;
+    // 供应商发货物流公司
+    private String supplierDelivery;
     // 供应商发货状态
     private String supplierDeliveryStatus;
     // 供应商物流号
@@ -80,6 +82,8 @@ public class Order implements Serializable {
     private String quality;
     // 仓库发货状态
     private String warehouseStatus;
+    // 仓库物流公司
+    private String warehouseDelivery;
     // 仓库物流号
     private String warehouseDeliveryNo;
     // 仓库发货时间
@@ -107,24 +111,4 @@ public class Order implements Serializable {
     @CreatedDate
     private Date createDate;
     
-    //地址信息
-    private String businessName;
-    
-    private String name;
-    
-    private String surname;
-    
-    private String email;
-    
-    private String streetName;
-    
-    private String streetNumber;
-    
-    private String city;
-    
-    private String zip;
-    
-    private String state;
-    
-    private String country;
 }

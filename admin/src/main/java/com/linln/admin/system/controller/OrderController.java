@@ -16,7 +16,6 @@ import org.apache.http.util.EntityUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -84,7 +83,16 @@ public class OrderController {
         // 获取数据列表
         Example<Order> example = Example.of(order, matcher);
         Page<Order> list = orderService.getPageList(example);
-
+        if (order.getSupplierName() != null) {
+            for (Order itemOrder : list) {
+                if(itemOrder.getOrderStatus().equals("下单")) {
+                    itemOrder.setOrderStatus("Placed");
+                }
+                if(itemOrder.getOrderStatus().equals("已取消")) {
+                    itemOrder.setOrderStatus("Cancelled");
+                }
+            }
+        }
         // 封装数据
         model.addAttribute("list", list.getContent());
         model.addAttribute("page", list);
@@ -164,6 +172,7 @@ public class OrderController {
             Order beOrder = orderService.getById(order.getId());
             System.out.println("old"+beOrder);
             EntityBeanUtil.copyProperties(beOrder, order);
+            order.setSubmitTime(beOrder.getSubmitTime());
             if(order.getSupplierBarCode() == null) {
                 order.setSupplierBarCode(beOrder.getSupplierBarCode());
             }
@@ -173,6 +182,9 @@ public class OrderController {
             if(order.getSupplierDeliveryStatus()==null) {
                 order.setSupplierDeliveryStatus(beOrder.getSupplierDeliveryStatus());
             }
+            if(order.getSupplierDelivery()==null) {
+                order.setSupplierDelivery(beOrder.getSupplierDelivery());
+            }
             if(order.getSupplierTime() ==null) {
                 order.setSupplierTime(beOrder.getSupplierTime());
             }
@@ -181,6 +193,9 @@ public class OrderController {
             }
             if(order.getWarehouseDeliveryNo()==null) {
                 order.setWarehouseDeliveryNo(beOrder.getWarehouseDeliveryNo());
+            }
+            if(order.getWarehouseDelivery()==null) {
+                order.setWarehouseDelivery(beOrder.getWarehouseDelivery());
             }
             if(order.getWarehouseStatus() ==null) {
                 order.setWarehouseStatus(beOrder.getWarehouseStatus());
@@ -210,6 +225,7 @@ public class OrderController {
              if(submit!=null) {
                  return ResultVoUtil.error(400, submit);
              }
+             order.setSubmitTime(LocalDateTime.now().toString());
          }
 
         // 保存数据
@@ -251,10 +267,8 @@ public class OrderController {
         submit.setProductID(param.getSku());
         submit.setSize(param.getSize());
         submit.setSoldUnits(1);
-        // 提交的价格 TODO
         submit.setUnitSellingPrice(Double.parseDouble(param.getPrice()));
         ShippingAddress shippingAddress = new ShippingAddress();
-        BeanUtils.copyProperties(param, shippingAddress);
         submit.setShippingAddress(shippingAddress);
 
         HttpClient httpclient = HttpClients.createDefault();

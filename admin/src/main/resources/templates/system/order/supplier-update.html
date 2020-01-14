@@ -92,14 +92,21 @@
 			</div>
 				
 			<div class="layui-form-item">
-					<label class="layui-form-label">供应商物流单号</label>
+					<label class="layui-form-label">Delivery company</label>
+					<div class="layui-input-inline">
+						<input class="layui-input" type="text" name="supplierDelivery"
+							placeholder="Please enter the Delivery company" th:value="${order?.supplierDelivery}">
+					</div>
+			</div>	
+			<div class="layui-form-item">
+					<label class="layui-form-label">Tracking No</label>
 					<div class="layui-input-inline">
 						<input class="layui-input" type="text" name="supplierDeliveryNo"
-							placeholder="请输入市场价" th:value="${order?.supplierDeliveryNo}">
+							placeholder="Please enter the Tracking No" th:value="${order?.supplierDeliveryNo}">
 					</div>
 			</div>
 			<div class="layui-form-item">
-					<label class="layui-form-label">供应商订单状态</label>
+					<label class="layui-form-label">Shipment Status</label>
 					<div class="layui-input-inline">
 						<select id="orderlist" name="supplierDeliveryStatus"
 							th:value="${order?.supplierDeliveryStatus}">

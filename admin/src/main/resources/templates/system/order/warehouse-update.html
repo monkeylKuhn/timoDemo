@@ -92,14 +92,21 @@
 			</div>
 				
 			<div class="layui-form-item">
-					<label class="layui-form-label">仓库物流单号</label>
+					<label class="layui-form-label">物流公司</label>
 					<div class="layui-input-inline">
-						<input class="layui-input" type="text" name="warehouseDeliveryNo"
-							placeholder="请输入市场价" th:value="${order?.warehouseDeliveryNo}">
+						<input class="layui-input" type="text" name="warehouseDelivery"
+							placeholder="请输入物流公司" th:value="${order?.warehouseDelivery}">
 					</div>
 			</div>
 			<div class="layui-form-item">
-					<label class="layui-form-label">仓库状态</label>
+					<label class="layui-form-label">物流单号</label>
+					<div class="layui-input-inline">
+						<input class="layui-input" type="text" name="warehouseDeliveryNo"
+							placeholder="请输入物流单号" th:value="${order?.warehouseDeliveryNo}">
+					</div>
+			</div>
+			<div class="layui-form-item">
+					<label class="layui-form-label">状态</label>
 					<div class="layui-input-inline">
 						<select id="orderlist" name="warehouseStatus"
 							th:value="${order?.warehouseStatus}">
