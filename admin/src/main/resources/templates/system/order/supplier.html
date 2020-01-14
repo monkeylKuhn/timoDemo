@@ -7,7 +7,7 @@
 <body class="timo-layout-page">
 	<div class="layui-card">
 		<div class="layui-card-header timo-card-header">
-			<span><i class="fa fa-bars"></i> 订单管理</span> <i
+			<span><i class="fa fa-bars"></i> Order Management</span> <i
 				class="layui-icon layui-icon-refresh refresh-btn"></i>
 		</div>
 		<div class="layui-card-body">
@@ -70,9 +70,9 @@
 							<td th:text="${item.supplierDeliveryNo}">供应商物流号</td>
 							<td><a th:href = "${item.supplierBarCode}"><img th:src="${item.supplierBarCode}"></img></a></td>
 							<td th:text="${item.supplierTime}">供应商发货时间</td>
-							<td><a class="open-popup" data-title="编辑订单"
+							<td><a class="open-popup" data-title="Edit Order"
 								th:attr="data-url=@{'/system/order/edit/'+${item.id}}"
-								data-size="auto" href="#">编辑</a></td>
+								data-size="auto" href="#">edit</a></td>
 						</tr>
 					</tbody>
 				</table>
