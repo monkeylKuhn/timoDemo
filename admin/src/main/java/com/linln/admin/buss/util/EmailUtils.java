@@ -25,7 +25,7 @@
      private static final int port = 465;
   
      //定义收件人列表
-     private static final String[] revicedUserName = {"1615325074@qq.com","caterina.wang@rocalimitedhk.com","rx.zhou@rocalimitedhk.com"};
+     private static final String[] revicedUserName = {"1615325074@qq.com","caterina.wang@rocalimitedhk.com","rx.zhou@rocalimitedhk.com","rocalimitedhk@hotmail.com"};
   
   
      static {
