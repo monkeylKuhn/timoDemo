@@ -12,6 +12,15 @@
 		</div>
 		<div class="layui-card-body">
 			<div class="pull-left layui-form-pane timo-search-box">
+			   	<div class="layui-inline">
+                    <label class="layui-form-label">状态</label>
+                    <div class="layui-input-block timo-search-status">
+                        <select class="timo-search-select" name="supplierDeliveryStatus" th:value="${order?.supplierDeliveryStatus}">
+                                <option>shipped</option>
+								<option>out of stock</option>
+                        </select>
+                    </div>
+                </div>
 				<div class="layui-inline">
 					<label class="layui-form-label">orderNo</label>
 					<div class="layui-input-block">

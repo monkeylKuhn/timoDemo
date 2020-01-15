@@ -91,10 +91,12 @@
 							<td th:text="${item.warehouseTime}">仓库发货时间</td>
 							<td><a class="open-popup" data-title="编辑订单"
 								th:attr="data-url=@{'/system/order/edit/'+${item.id}}"
-								data-size="auto" href="#">编辑</a> <a class="open-popup"
+								data-size="auto" href="#">编辑</a>
+								<br> <a class="open-popup"
 								data-title="编辑订单"
 								th:attr="data-url=@{'/system/order/update/supplier/'+${item.id}}"
-								data-size="auto" href="#">上传供应商barcode</a> <a class="open-popup"
+								data-size="auto" href="#">上传供应商barcode</a>
+								<br> <a class="open-popup"
 								data-title="编辑订单"
 								th:attr="data-url=@{'/system/order/update/warehouse/'+${item.id}}"
 								data-size="auto" href="#">上传仓库barcode</a></td>

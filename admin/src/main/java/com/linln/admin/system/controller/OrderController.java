@@ -226,6 +226,8 @@ public class OrderController {
                  return ResultVoUtil.error(400, submit);
              }
              order.setSubmitTime(LocalDateTime.now().toString());
+             order.setSupplierDeliveryStatus("待处理");
+             order.setWarehouseStatus("待处理");
          }
 
         // 保存数据
