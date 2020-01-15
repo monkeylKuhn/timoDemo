@@ -12,15 +12,16 @@
 		</div>
 		<div class="layui-card-body">
 			<div class="pull-left layui-form-pane timo-search-box">
+			
 			   	<div class="layui-inline">
-                    <label class="layui-form-label">状态</label>
-                    <div class="layui-input-block timo-search-status">
-                        <select class="timo-search-select" name="supplierDeliveryStatus" th:value="${order?.supplierDeliveryStatus}">
-                                <option>shipped</option>
-								<option>out of stock</option>
-                        </select>
+                        <label class="layui-form-label">状态</label>
+                        <div class="layui-input-block timo-search-status">
+                            <select class="timo-search-select" name="supplierDeliveryStatus" mo:dict="ORDER_SUPPLIER_STATUS"
+                                    mo-selected="${param.supplierDeliveryStatus}"></select>
+                        </div>
                     </div>
-                </div>
+                
+                
 				<div class="layui-inline">
 					<label class="layui-form-label">orderNo</label>
 					<div class="layui-input-block">
@@ -42,6 +43,7 @@
 				<table class="layui-table timo-table">
 					<thead>
 						<tr>
+							<th>Operation</th>
 							<th>Order NO</th>
 							<th>Order Time</th>
 							<th>Supplier Sku</th>
@@ -58,11 +60,13 @@
 							<th>Tracking No</th>
 							<th>Barcode</th>
 							<th>Shipment Time</th>
-							<th>Operation</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="item:${list}">
+							<td><a class="open-popup" data-title="Edit Order"
+								th:attr="data-url=@{'/system/order/edit/'+${item.id}}"
+								data-size="auto" href="#">edit</a></td>
 							<td th:text="${item.orderNo}">订单号</td>
 							<td th:text="${item.submitTime}">下单时间</td>
 							<td th:text="${item.sku}">商品sku</td>
@@ -79,9 +83,6 @@
 							<td th:text="${item.supplierDeliveryNo}">供应商物流号</td>
 							<td><a th:href = "${item.supplierBarCode}"><img th:src="${item.supplierBarCode}"></img></a></td>
 							<td th:text="${item.supplierTime}">供应商发货时间</td>
-							<td><a class="open-popup" data-title="Edit Order"
-								th:attr="data-url=@{'/system/order/edit/'+${item.id}}"
-								data-size="auto" href="#">edit</a></td>
 						</tr>
 					</tbody>
 				</table>

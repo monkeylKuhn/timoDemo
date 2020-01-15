@@ -79,7 +79,17 @@ public class OrderController {
         String type = roleMapper.getRoleNameByUserId(user.getId());
         if (type.equals("supplier")) {
             order.setSupplierName(user.getUsername());
+            if(order.getSupplierDeliveryStatus()!=null && order.getSupplierDeliveryStatus().equals("0")) {
+                order.setSupplierDeliveryStatus("pending");
+            }
+            if(order.getSupplierDeliveryStatus()!=null && order.getSupplierDeliveryStatus().equals("1")) {
+                order.setSupplierDeliveryStatus("shipped");
+            }
+            if(order.getSupplierDeliveryStatus()!=null && order.getSupplierDeliveryStatus().equals("2")) {
+                order.setSupplierDeliveryStatus("out of stock");
+            }
         }
+        
         // 获取数据列表
         Example<Order> example = Example.of(order, matcher);
         Page<Order> list = orderService.getPageList(example);
@@ -226,7 +236,7 @@ public class OrderController {
                  return ResultVoUtil.error(400, submit);
              }
              order.setSubmitTime(LocalDateTime.now().toString());
-             order.setSupplierDeliveryStatus("待处理");
+             order.setSupplierDeliveryStatus("pending");
              order.setWarehouseStatus("待处理");
          }
 
