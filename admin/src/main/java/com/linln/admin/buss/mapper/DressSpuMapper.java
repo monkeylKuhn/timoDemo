@@ -23,18 +23,19 @@ public interface DressSpuMapper {
         " dp.made_in as madeIn, " + 
         " dp.composition , " + 
         " dp.season , " + 
-        " IF(dp.is_carry_over,\"是\",\"否\") AS isCarryOver, " + 
+        " dp.is_carry_over AS isCarryOver, " + 
         " dp.color , " + 
         " dp.retail_price AS retailPrice, " + 
         " dp.price , " + 
-        " IF(dp.prices_include_vat,\"是\",\"否\") AS pricesIncludeVat, " + 
+        " dp.prices_include_vat AS pricesIncludeVat, " + 
         " dp.product_last_updated AS productLastUpdated, " + 
         " ds.size , " + 
         " ds.stock , " + 
         " dp.photos  " + 
         "FROM " + 
         " s_dress_spu AS dp " + 
-        "RIGHT JOIN dressskusize AS ds ON dp.productID = ds.productID;"
+        "RIGHT JOIN dressskusize AS ds ON dp.productID = ds.productID " + 
+        "WHERE dp.id IS NOT NULL"
     })
     List<ExportDTO> export() ;
 

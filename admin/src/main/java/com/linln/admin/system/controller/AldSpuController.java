@@ -134,6 +134,8 @@ public class AldSpuController {
     public void export(HttpServletResponse response) {
         List<ExportDTO> skuExport = aldSpuExportMapper.export();
         for (ExportDTO exportDTO : skuExport) {
+            exportDTO.setIsCarryOver(exportDTO.getIsCarryOver().equals("0")?"否":"是");
+            exportDTO.setPricesIncludeVat(exportDTO.getPricesIncludeVat().equals("true")?"是":"否");
             if (exportDTO.getPhotos() != null && !exportDTO.getPhotos().isEmpty()) {
                 String[] urls = exportDTO.getPhotos().split("\\^");
                 if (urls.length >= 1) {
