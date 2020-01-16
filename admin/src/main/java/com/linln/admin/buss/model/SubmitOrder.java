@@ -17,7 +17,7 @@ public class SubmitOrder {
      
      private double unitSellingPrice;
      
-     // true 为测试环境 正式为false  TODO
+     //TODO  true为测试环境 正式为false  上线删除
      private boolean testMode = true;
      
      private ShippingAddress shippingAddress;

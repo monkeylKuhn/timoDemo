@@ -227,7 +227,7 @@ public class OrderController {
             }
         }else {
              // 获取商品信息 验证库存 价格是否发生改变
-             DressProduct dressProduct = getDressProductBySku(order.getSku());
+             DressProduct dressProduct = getDressProductBySku(order.getSku(),order.getSupplierName());
              if (dressProduct == null ||chechSku(dressProduct, order)) {
                  return ResultVoUtil.error(400,"商品信息有误");
              }
@@ -283,26 +283,48 @@ public class OrderController {
         ShippingAddress shippingAddress = new ShippingAddress();
         submit.setShippingAddress(shippingAddress);
 
-        HttpClient httpclient = HttpClients.createDefault();
-        try {
-            URIBuilder builder = new URIBuilder(
-                "https://api.dresscode.cloud/channels/v2/api/feeds/en/clients/llf/orders/items?channelKey=0198873e-1fde-4783-8719-4f1d0790eb6e");
-            URI uri = builder.build();
-            HttpPost request = new HttpPost(uri);
-            request.setHeader("Content-Type", "application/json");
-            request.setHeader("Ocp-Apim-Subscription-Key", "107b04efec074c6f8f8abed90d224802");
-            // Request body
-            StringEntity reqEntity = new StringEntity(JSON.toJSONString(submit));
-            request.setEntity(reqEntity);
-            HttpResponse response = httpclient.execute(request);
-            HttpEntity entity = response.getEntity();
-            if (entity != null) {
-                OrderReturn returnDetail = JSONObject.parseObject(EntityUtils.toString(entity), OrderReturn.class);
-                if (returnDetail.getError() != null)
-                    return returnDetail.getError().getTitel();
+        String client = null;
+        String channelKey = null;
+        switch (param.getSupplierName()) {
+            case "lungolivigno":
+                client = "llf";
+                channelKey = "0198873e-1fde-4783-8719-4f1d0790eb6e";
+                break;
+            case "alducadaosta":
+                client = "adda";
+                channelKey = "c05b4b60-a34e-4a06-81e1-9d57d047d017";
+                break;
+            //TODO 上线删除测试信息
+            case "testSupplier":
+                client = "llf";
+                channelKey = "0198873e-1fde-4783-8719-4f1d0790eb6e";
+                break;   
+            default:
+                break;
+        }
+        if(client!=null && channelKey!=null) {
+            
+            HttpClient httpclient = HttpClients.createDefault();
+            try {
+                URIBuilder builder = new URIBuilder(
+                    "https://api.dresscode.cloud/channels/v2/api/feeds/en/clients/"+client+"/orders/items?channelKey="+channelKey);
+                URI uri = builder.build();
+                HttpPost request = new HttpPost(uri);
+                request.setHeader("Content-Type", "application/json");
+                request.setHeader("Ocp-Apim-Subscription-Key", "107b04efec074c6f8f8abed90d224802");
+                // Request body
+                StringEntity reqEntity = new StringEntity(JSON.toJSONString(submit));
+                request.setEntity(reqEntity);
+                HttpResponse response = httpclient.execute(request);
+                HttpEntity entity = response.getEntity();
+                if (entity != null) {
+                    OrderReturn returnDetail = JSONObject.parseObject(EntityUtils.toString(entity), OrderReturn.class);
+                    if (returnDetail.getError() != null)
+                        return returnDetail.getError().getTitel();
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
         }
         return null;
     }
@@ -335,17 +357,39 @@ public class OrderController {
      * @param productId
      * @return
      */
-    private DressProduct getDressProductBySku(String productId) {
-        String url = "https://api.dresscode.cloud/channels/v2/api/feeds/en/clients/llf/products/" + productId
-            + "?channelKey=0198873e-1fde-4783-8719-4f1d0790eb6e";
-        HashMap<String, String> head = new HashMap<String, String>();
-        head.put("Ocp-Apim-Subscription-Key", "107b04efec074c6f8f8abed90d224802");
-        try {
-            String sendGetRequest = HttpClientUtil.sendGetRequest(url, 25000, head);
-            DressResult result = JSONObject.parseObject(sendGetRequest, DressResult.class);
-            return result.getData().get(0);
-        } catch (Exception e) {
-            e.printStackTrace();
+    private DressProduct getDressProductBySku(String productId,String supplier) {
+        String client = null;
+        String channelKey = null;
+        switch (supplier) {
+            case "lungolivigno":
+                client = "llf";
+                channelKey = "0198873e-1fde-4783-8719-4f1d0790eb6e";
+                break;
+            case "alducadaosta":
+                client = "adda";
+                channelKey = "c05b4b60-a34e-4a06-81e1-9d57d047d017";
+                break;
+                
+            //TODO 上线删除测试信息
+            case "testSupplier":
+                client = "llf";
+                channelKey = "0198873e-1fde-4783-8719-4f1d0790eb6e";
+                break;
+            default:
+                break;
+        }
+        if(client!=null && channelKey!=null) {
+            String url = "https://api.dresscode.cloud/channels/v2/api/feeds/en/clients/"+client+"/products/" + productId
+                + "?channelKey="+channelKey;
+            HashMap<String, String> head = new HashMap<String, String>();
+            head.put("Ocp-Apim-Subscription-Key", "107b04efec074c6f8f8abed90d224802");
+            try {
+                String sendGetRequest = HttpClientUtil.sendGetRequest(url, 25000, head);
+                DressResult result = JSONObject.parseObject(sendGetRequest, DressResult.class);
+                return result.getData().get(0);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
