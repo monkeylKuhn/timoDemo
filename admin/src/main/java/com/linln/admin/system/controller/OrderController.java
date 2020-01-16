@@ -226,18 +226,20 @@ public class OrderController {
                 order.setWarehouseTime(LocalDateTime.now().plusHours(7L).toString());
             }
         }else {
-             // 获取商品信息 验证库存 价格是否发生改变
-             DressProduct dressProduct = getDressProductBySku(order.getSku(),order.getSupplierName());
-             if (dressProduct == null ||chechSku(dressProduct, order)) {
-                 return ResultVoUtil.error(400,"商品信息有误");
-             }
-             String submit = this.submitOrder(order);
-             if(submit!=null) {
-                 return ResultVoUtil.error(400, submit);
-             }
-             order.setSubmitTime(LocalDateTime.now().toString());
-             order.setSupplierDeliveryStatus("pending");
-             order.setWarehouseStatus("待处理");
+            if(!order.getSupplierName().equals("ziying")){
+                // 获取商品信息 验证库存 价格是否发生改变
+                DressProduct dressProduct = getDressProductBySku(order.getSku(),order.getSupplierName());
+                if (dressProduct == null ||chechSku(dressProduct, order)) {
+                    return ResultVoUtil.error(400,"商品信息有误");
+                }
+                String submit = this.submitOrder(order);
+                if(submit!=null) {
+                    return ResultVoUtil.error(400, submit);
+                }
+            }
+            order.setSubmitTime(LocalDateTime.now().toString());
+            order.setSupplierDeliveryStatus("pending");
+            order.setWarehouseStatus("待处理");
          }
 
         // 保存数据
