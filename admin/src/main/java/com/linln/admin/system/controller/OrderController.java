@@ -294,11 +294,6 @@ public class OrderController {
                 client = "adda";
                 channelKey = "c05b4b60-a34e-4a06-81e1-9d57d047d017";
                 break;
-            //TODO 上线删除测试信息
-            case "testSupplier":
-                client = "llf";
-                channelKey = "0198873e-1fde-4783-8719-4f1d0790eb6e";
-                break;   
             default:
                 break;
         }
@@ -368,12 +363,6 @@ public class OrderController {
             case "alducadaosta":
                 client = "adda";
                 channelKey = "c05b4b60-a34e-4a06-81e1-9d57d047d017";
-                break;
-                
-            //TODO 上线删除测试信息
-            case "testSupplier":
-                client = "llf";
-                channelKey = "0198873e-1fde-4783-8719-4f1d0790eb6e";
                 break;
             default:
                 break;
