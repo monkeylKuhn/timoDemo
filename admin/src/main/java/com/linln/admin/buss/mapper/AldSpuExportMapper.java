@@ -31,7 +31,8 @@ public interface AldSpuExportMapper {
         " dp.product_last_updated AS productLastUpdated, " + 
         " ds.size , " + 
         " ds.stock , " + 
-        " dp.photos  " + 
+        " dp.photos,  " + 
+        " dp.client_productid AS clientProductId  "+
         "FROM " + 
         " s_ald_spu AS dp " + 
         "RIGHT JOIN aldskusize AS ds ON dp.productID = ds.productID "+

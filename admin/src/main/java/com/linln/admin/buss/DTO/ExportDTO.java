@@ -9,6 +9,9 @@ public class ExportDTO {
     @Excel(name = "供应商spu编码")
     private String productID;
 
+    @Excel(name = "clientProductId")
+    private String clientProductId;
+    
     @Excel(name = "货号")
     private String sku;
 

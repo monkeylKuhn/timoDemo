@@ -31,7 +31,8 @@ public interface DressSpuMapper {
         " dp.product_last_updated AS productLastUpdated, " + 
         " ds.size , " + 
         " ds.stock , " + 
-        " dp.photos  " + 
+        " dp.photos  ," + 
+        " dp.client_productid AS clientProductId  "+
         "FROM " + 
         " s_dress_spu AS dp " + 
         "RIGHT JOIN dressskusize AS ds ON dp.productID = ds.productID " + 
