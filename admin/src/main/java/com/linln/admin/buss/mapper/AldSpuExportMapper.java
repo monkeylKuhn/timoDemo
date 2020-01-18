@@ -32,7 +32,7 @@ public interface AldSpuExportMapper {
         " ds.size , " + 
         " ds.stock , " + 
         " dp.photos,  " + 
-        " dp.size_and_fit,  " + 
+        " dp.size_and_fit AS sizeAndFit,  " + 
         " dp.client_productid AS clientProductId  "+
         "FROM " + 
         " s_ald_spu AS dp " + 
