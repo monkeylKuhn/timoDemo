@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Select;
 
-import com.linln.admin.buss.DTO.ExportDTO;
+import com.linln.admin.buss.DTO.AldExportDTO;
 
 public interface AldSpuExportMapper {
 
@@ -32,6 +32,7 @@ public interface AldSpuExportMapper {
         " ds.size , " + 
         " ds.stock , " + 
         " dp.photos,  " + 
+        " dp.size_and_fit,  " + 
         " dp.client_productid AS clientProductId  "+
         "FROM " + 
         " s_ald_spu AS dp " + 
@@ -39,7 +40,7 @@ public interface AldSpuExportMapper {
         "WHERE dp.id IS NOT NULL"
         
     })
-    List<ExportDTO> export() ;
+    List<AldExportDTO> export() ;
 
      
      

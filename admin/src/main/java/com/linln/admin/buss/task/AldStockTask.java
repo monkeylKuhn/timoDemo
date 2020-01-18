@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -24,7 +25,7 @@ public class AldStockTask {
 	AldSkuMapper dressSkuMapper;
 	
 //	@Scheduled(cron = "0 0/20 * * * ?")
-//	@Scheduled(fixedDelay=1000*60*10)
+	@Scheduled(fixedDelay=1000*60*10)
 	public void fetchStock() {
 	    System.err.println(new Date().toLocaleString()+"adda开始执行库存更新"+System.currentTimeMillis());
 		String url = "https://api.dresscode.cloud/channels/v2/api/feeds/en/clients/adda/stocks?channelKey=c05b4b60-a34e-4a06-81e1-9d57d047d017";

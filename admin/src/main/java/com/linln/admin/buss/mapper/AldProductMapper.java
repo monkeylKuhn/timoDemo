@@ -46,9 +46,9 @@ public interface AldProductMapper {
      @Insert({
          "<script>",
          "INSERT INTO s_ald_spu(productid,client_productid,spu,sku,brand,name,description,genre,type,",
-         "category,season,is_carry_over,color,retail_price,price,prices_include_vat,product_last_updated,photos,made_in,composition)  ",
+         "category,season,is_carry_over,color,retail_price,price,prices_include_vat,product_last_updated,photos,made_in,composition,size_and_fit)  ",
          "values(#{productID},#{clientProductID},#{spu},#{sku},#{brand},#{name},#{description},#{genre},#{type},",
-         "#{category},#{season},#{isCarryOver},#{color},#{retailPrice},#{price},#{pricesIncludeVat},#{productLastUpdated},#{photos},#{madeIn},#{composition})",
+         "#{category},#{season},#{isCarryOver},#{color},#{retailPrice},#{price},#{pricesIncludeVat},#{productLastUpdated},#{photos},#{madeIn},#{composition},#{sizeAndFit})",
          "</script>"
      })
      @Options(useGeneratedKeys = true, keyProperty = "id")

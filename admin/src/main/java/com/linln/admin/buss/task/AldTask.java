@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -25,12 +26,11 @@ public class AldTask {
 	AldSkuMapper dressSkuMapper;
 	
 //	@Scheduled(cron = "0 0/2 * * * ?")
-//	@Scheduled(fixedDelay=1000*60*30)
+	@Scheduled(fixedDelay=1000*60*30)
 	public void fetchProduct() {
 		
 		System.err.println(new Date().toLocaleString()+"adda商品更新开始"+System.currentTimeMillis());
 
-		
 		String url = "https://api.dresscode.cloud/channels/v2/api/feeds/en/clients/adda/products?channelKey=c05b4b60-a34e-4a06-81e1-9d57d047d017";
 		HashMap<String, String> head = new HashMap<String,String>();
 		head.put("Ocp-Apim-Subscription-Key", "107b04efec074c6f8f8abed90d224802");

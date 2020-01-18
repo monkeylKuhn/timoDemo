@@ -56,5 +56,6 @@ public class AldProduct {
 		return sb.toString();
 	}
 		
+	private String sizeAndFit;
 	private Long id;
 }

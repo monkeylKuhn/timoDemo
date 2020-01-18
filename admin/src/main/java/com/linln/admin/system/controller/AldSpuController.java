@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.linln.admin.buss.DTO.AldExportDTO;
 import com.linln.admin.buss.DTO.ExportDTO;
 import com.linln.admin.buss.mapper.AldSpuExportMapper;
 import com.linln.admin.buss.util.EasyPoiUtils;
@@ -132,8 +133,8 @@ public class AldSpuController {
     
     @GetMapping("/export")
     public void export(HttpServletResponse response) {
-        List<ExportDTO> skuExport = aldSpuExportMapper.export();
-        for (ExportDTO exportDTO : skuExport) {
+        List<AldExportDTO> skuExport = aldSpuExportMapper.export();
+        for (AldExportDTO exportDTO : skuExport) {
             exportDTO.setIsCarryOver(exportDTO.getIsCarryOver().equals("0")?"否":"是");
             exportDTO.setPricesIncludeVat(exportDTO.getPricesIncludeVat().equals("true")?"是":"否");
             if (exportDTO.getPhotos() != null && !exportDTO.getPhotos().isEmpty()) {
@@ -155,6 +156,6 @@ public class AldSpuController {
                 }
             }
         }
-        EasyPoiUtils.exportExcel(skuExport, "商品信息", "商品信息", ExportDTO.class, "商品信息.xls", response);
+        EasyPoiUtils.exportExcel(skuExport, "商品信息", "商品信息", AldExportDTO.class, "商品信息.xls", response);
     }    
 }
