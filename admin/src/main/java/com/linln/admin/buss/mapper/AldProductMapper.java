@@ -38,6 +38,7 @@ public interface AldProductMapper {
        "    composition = #{composition}, ",
        "    prices_include_vat = #{pricesIncludeVat}, ",
        "    product_last_updated = #{productLastUpdated}, ",
+       "    size_and_fit = #{sizeAndFit}, ",
        "    photos = #{photos} ",
        "WHERE productid = #{productID}"
      })
