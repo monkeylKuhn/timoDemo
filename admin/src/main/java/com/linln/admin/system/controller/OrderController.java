@@ -284,6 +284,7 @@ public class OrderController {
         submit.setUnitSellingPrice(Double.parseDouble(param.getPrice()));
         ShippingAddress shippingAddress = new ShippingAddress();
         submit.setShippingAddress(shippingAddress);
+        
 
         String client = null;
         String channelKey = null;
@@ -295,6 +296,7 @@ public class OrderController {
             case "alducadaosta":
                 client = "adda";
                 channelKey = "c05b4b60-a34e-4a06-81e1-9d57d047d017";
+                submit.setTestMode(true);
                 break;
             default:
                 break;
