@@ -9,6 +9,8 @@ import lombok.Data;
      
      private String name = "ROCA INTERNATIONAL LIMITED SURNAME:ROCA INTERNATIONAL LIMITED";
      
+     private String surname = "ROCA INTERNATIONAL LIMITED SURNAME:ROCA INTERNATIONAL LIMITED";
+     
      private String email = "rocalimitedhk@hotmail.com";
      
      private String streetName = "UNIT B ON 7TH FLOOR HUNG CHEUNG INDUSTRIAL CENTRE(PHASE  II)NO.10 TSING YEUNG CIRCUIT TUEN MUN NEW TERRITORIES";
