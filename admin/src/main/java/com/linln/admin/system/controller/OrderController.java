@@ -343,7 +343,7 @@ public class OrderController {
             if (size.getSize().equals(order.getSize()))
                 dressSkuSize = size;
         }
-        if (dressSkuSize == null || Integer.parseInt(dressSkuSize.getStock()) == 0) {
+        if (dressSkuSize == null || dressSkuSize.getStock().isEmpty() || Integer.parseInt(dressSkuSize.getStock()) == 0) {
             return true;
         }
         return false;
