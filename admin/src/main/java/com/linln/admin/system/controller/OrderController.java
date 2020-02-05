@@ -296,7 +296,7 @@ public class OrderController {
             case "alducadaosta":
                 client = "adda";
                 channelKey = "c05b4b60-a34e-4a06-81e1-9d57d047d017";
-                submit.setTestMode(true);
+//                submit.setTestMode(true);
                 break;
             default:
                 break;
