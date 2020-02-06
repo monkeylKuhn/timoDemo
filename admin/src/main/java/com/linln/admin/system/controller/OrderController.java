@@ -89,6 +89,18 @@ public class OrderController {
                 order.setSupplierDeliveryStatus("out of stock");
             }
         }
+        //仓库检索
+        if(type.equals("warehouse")) {
+            if(user.getUsername().equals("HongKongWarehouse")) {
+                order.setSupplierName("lungolivigno");
+            }
+            if(user.getUsername().equals("MilanWarehouse")) {
+                order.setSupplierName("alducadaosta");
+            }
+            if(user.getUsername().equals("ZiYingWarehouse")) {
+                order.setSupplierName("ziying");
+            }
+        }
         
         // 获取数据列表
         Example<Order> example = Example.of(order, matcher);
