@@ -25,7 +25,7 @@ public class TestStockTask {
 	DressSkuMapper dressSkuMapper;
 	
 //	@Scheduled(cron = "0 0/20 * * * ?")
-	@Scheduled(fixedDelay=1000*60*10)
+	@Scheduled(fixedDelay=1000*60*20)
 	public void fetchStock() {
 	    System.err.println(new Date().toLocaleString()+"开始执行库存更新"+System.currentTimeMillis());
 		String url = "https://api.dresscode.cloud/channels/v2/api/feeds/en/clients/llf/stocks?channelKey=0198873e-1fde-4783-8719-4f1d0790eb6e";

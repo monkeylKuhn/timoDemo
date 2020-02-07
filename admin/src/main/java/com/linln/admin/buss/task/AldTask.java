@@ -26,7 +26,7 @@ public class AldTask {
 	AldSkuMapper dressSkuMapper;
 	
 //	@Scheduled(cron = "0 0/2 * * * ?")
-	@Scheduled(fixedDelay=1000*60*30)
+	@Scheduled(fixedDelay=1000*60*40)
 	public void fetchProduct() {
 		
 		System.err.println(new Date().toLocaleString()+"adda商品更新开始"+System.currentTimeMillis());
