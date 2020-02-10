@@ -50,12 +50,15 @@ import com.linln.modules.system.domain.Order;
 import com.linln.modules.system.domain.User;
 import com.linln.modules.system.service.OrderService;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author 小懒虫
  * @date 2020/01/12
  */
 @Controller
 @RequestMapping("/system/order")
+@Slf4j
 public class OrderController {
 
     @Autowired
@@ -188,11 +191,10 @@ public class OrderController {
     @RequiresPermissions({"system:order:add", "system:order:edit"})
     @ResponseBody
     public ResultVo save(@Validated OrderValid valid, Order order) {
+        log.info("订单参数为={}",JSONObject.toJSONString(order));
         // 复制保留无需修改的数据
         if (order.getId() != null) {
-            System.out.println("new "+order);
             Order beOrder = orderService.getById(order.getId());
-            System.out.println("old"+beOrder);
             EntityBeanUtil.copyProperties(beOrder, order);
             order.setSubmitTime(beOrder.getSubmitTime());
             if(order.getSupplierBarCode() == null) {
@@ -225,7 +227,6 @@ public class OrderController {
             if(order.getWarehouseTime() == null) {
                 order.setWarehouseTime(beOrder.getWarehouseTime());
             }
-            System.out.println("new "+order);
             Subject subject = SecurityUtils.getSubject();
             User user = (User)subject.getPrincipal();
             String type = roleMapper.getRoleNameByUserId(user.getId());
@@ -369,6 +370,7 @@ public class OrderController {
      * @return
      */
     private DressProduct getDressProductBySku(String productId,String supplier) {
+        log.info("接口参数productId={},supplier={}", productId, supplier);
         String client = null;
         String channelKey = null;
         switch (supplier) {
